@@ -28,18 +28,14 @@ public class ArrayStorage {
 
 
     void delete(String uuid) {
-        boolean isNumberFind = false;
-
         for (int i = 0; i < len; i++) {
             if (storage[i].uuid == uuid) {
-                isNumberFind = true;
-            }
-            if (isNumberFind) {
-                storage[i] = storage[i + 1];
+                storage[i] = storage[len -1];
+                storage[len - 1] = null;
+                len = len - 1;
+                break;
             }
         }
-        storage[len - 1] = null;
-        len = len - 1;
     }
 
 
