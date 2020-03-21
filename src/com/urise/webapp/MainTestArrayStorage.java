@@ -23,36 +23,19 @@ public class MainTestArrayStorage {
 
         System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.getUuid()));
         System.out.println("Size: " + ARRAY_STORAGE.size());
-        System.out.println();
+
         System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
 
         printAll();
         ARRAY_STORAGE.delete(r1.getUuid());
         printAll();
-
-        System.out.println();
-        ARRAY_STORAGE.delete("uuid6");
-
         System.out.println();
         ARRAY_STORAGE.get(r1.getUuid());
-
-        System.out.println();
-
-
-        System.out.println();
         printAll();
-
-        ARRAY_STORAGE.update(r2);
-
-        System.out.println("Get r2: " + ARRAY_STORAGE.get(r2.getUuid()));
-        printAll();
-        System.out.println("Size: " + ARRAY_STORAGE.size());
-
         ARRAY_STORAGE.clear();
         printAll();
 
         System.out.println("Size: " + ARRAY_STORAGE.size());
-
     }
 
     static void printAll() {
