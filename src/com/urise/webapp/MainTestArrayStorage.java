@@ -27,6 +27,7 @@ public class MainTestArrayStorage {
         System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
 
         printAll();
+        printAll();
         ARRAY_STORAGE.delete(r1.getUuid());
         printAll();
 
