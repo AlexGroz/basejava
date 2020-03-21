@@ -37,7 +37,7 @@ public class MainTestArrayStorage {
         ARRAY_STORAGE.get(r1.getUuid());
 
         System.out.println();
-        ARRAY_STORAGE.update(r1);
+
 
         System.out.println();
         printAll();

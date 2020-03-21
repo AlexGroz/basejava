@@ -6,7 +6,6 @@ import com.urise.webapp.storage.ArrayStorage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 
 /**
  * Interactive test for com.urise.webapp.storage.ArrayStorage implementation
@@ -37,7 +36,7 @@ public class MainArray {
                     System.out.println(ARRAY_STORAGE.size());
                     break;
                 case "save":
-                    Arrays
+                    //Arrays
                     r = new Resume();
                     r.setUuid(uuid);
                     ARRAY_STORAGE.save(r);
