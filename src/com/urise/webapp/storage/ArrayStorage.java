@@ -7,7 +7,7 @@ import java.util.Arrays;
 /**
  * Array based storage for Resumes
  */
-public class ArrayStorage {
+public class ArrayStorage implements Storage {
     private static final int STORAGE_LIMIT = 10000;
     private Resume[] storage = new Resume[STORAGE_LIMIT];
     private int len = 0;
@@ -19,7 +19,7 @@ public class ArrayStorage {
 
     public void save(Resume r) {
         if (getIndex(r.getUuid()) != -1) {
-                System.out.println("Resume " + r.getUuid() + " already exist");
+            System.out.println("Resume " + r.getUuid() + " already exist");
         } else if (len == STORAGE_LIMIT) {
             System.out.println("Storage overflow");
         } else {
