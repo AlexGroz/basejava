@@ -6,6 +6,7 @@ import com.urise.webapp.model.Resume;
  * Array based storage for Resumes
  */
 public class ArrayStorage extends AbstractArrayStorage {
+    int zg = 2;
     @Override
     protected void insertElement(Resume r, int index) {
         storage[len] = r;
