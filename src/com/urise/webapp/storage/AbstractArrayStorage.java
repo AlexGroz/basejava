@@ -12,43 +12,41 @@ import java.util.Arrays;
  */
 public abstract class AbstractArrayStorage implements Storage {
     protected static final int STORAGE_LIMIT = 10000;
+
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
-    protected int len = 0;
+    protected int size = 0;
 
     public int size() {
-        return len;
-    }
-
-    public Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, len);
+        return size;
     }
 
     public void clear() {
-        Arrays.fill(storage, 0, len, null);
-        len = 0;
+        Arrays.fill(storage, 0, size, null);
+        size = 0;
+    }
+
+    public void update(Resume r) {
+        int index = getIndex(r.getUuid());
+        if (index < 0) {
+            throw new NotExistStorageException(r.getUuid());
+        } else {
+            storage[index] = r;
+        }
+    }
+
+    public Resume[] getAll() {
+        return Arrays.copyOfRange(storage, 0, size);
     }
 
     public void save(Resume r) {
         int index = getIndex(r.getUuid());
-        if (index > 0) {
+        if (index >= 0) {
             throw new ExistStorageException(r.getUuid());
-        } else if (len == STORAGE_LIMIT) {
+        } else if (size == STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", r.getUuid());
         } else {
             insertElement(r, index);
-            storage[len] = r;
-            len++;
-        }
-    }
-
-    protected abstract void insertElement(Resume r, int index);
-
-    public void update(Resume r) {
-        int index = getIndex(r.getUuid());
-        if (index != -1) {
-            throw new NotExistStorageException(r.getUuid());
-        } else {
-            storage[index] = r;
+            size++;
         }
     }
 
@@ -58,12 +56,10 @@ public abstract class AbstractArrayStorage implements Storage {
             throw new NotExistStorageException(uuid);
         } else {
             fillDeletedElement(index);
-            storage[len - 1] = null;
-            len--;
+            storage[size - 1] = null;
+            size--;
         }
     }
-
-    protected abstract void fillDeletedElement(int index);
 
     public Resume get(String uuid) {
         int index = getIndex(uuid);
@@ -72,6 +68,10 @@ public abstract class AbstractArrayStorage implements Storage {
         }
         return storage[index];
     }
+
+    protected abstract void fillDeletedElement(int index);
+
+    protected abstract void insertElement(Resume r, int index);
 
     protected abstract int getIndex(String uuid);
 }
