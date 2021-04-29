@@ -7,7 +7,7 @@ import com.urise.webapp.sql.SqlHelper;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -90,12 +90,12 @@ public class SqlStorage implements Storage {
                 "LEFT JOIN contact c ON r.uuid = c.resume_uuid\n" +
                 "ORDER BY full_name, uuid", ps -> {
             ResultSet rs = ps.executeQuery();
-            Map<String, Resume> map = new HashMap<>();
+            Map<String, Resume> map = new LinkedHashMap<>();
             while (rs.next()) {
                 String uuid = rs.getString("uuid");
                 Resume resume = map.get(uuid);
                 if(resume == null) {
-                    new Resume(uuid, rs.getString("full_name"));
+                    resume  = new Resume(uuid, rs.getString("full_name"));
                     map.put(uuid, resume);
                 }
             addContact(rs, resume);
@@ -133,6 +133,9 @@ public class SqlStorage implements Storage {
     }
 
     private void addContact(ResultSet rs, Resume r) throws SQLException {
-        r.addContact(ContactType.valueOf(rs.getString("type")), rs.getString("value"));
+        String value = rs.getString("value");
+        if(value != null) {
+            r.addContact(ContactType.valueOf(rs.getString("type")), value);
+        }
     }
 }
